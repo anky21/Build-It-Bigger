@@ -20,14 +20,11 @@ import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
-    public String mJoke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        new EndpointsAsyncTask().execute(this);
     }
     
     @Override
@@ -53,10 +50,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
+        // Kicks off the Async Task
         new EndpointsAsyncTask().execute(this);
-        Intent intent = new Intent(this, JokeDisplay.class);
-        intent.putExtra(Intent.EXTRA_TEXT, mJoke);
-        startActivity(intent);
     }
 
     class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
@@ -94,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            mJoke = result;
+            Intent intent = new Intent(getApplicationContext(), JokeDisplay.class);
+            intent.putExtra(Intent.EXTRA_TEXT, result);
+            startActivity(intent);
         }
     }
 }
