@@ -169,7 +169,6 @@
     <orderEntry type="library" exported="" name="guava-jdk5-13.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-25.1.0" level="project" />
     <orderEntry type="module" module-name="jokeDisplay" exported="" />
-    <orderEntry type="module" module-name="jokesources" exported="" />
     <orderEntry type="library" exported="" name="android-android-25" level="project" />
   </component>
 </module>
