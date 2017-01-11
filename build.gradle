@@ -17,3 +17,22 @@ allprojects {
         jcenter()
     }
 }
+
+task automatedTest {
+//    project(":backend").afterEvaluate { backend ->
+//        backend.extensions.appengine.daemon = true
+//    }
+    evaluationDependsOn ":backend"
+    project(":backend") {
+        appengine {
+            daemon true
+        }
+    }
+    dependsOn ':backend:appengineRun'
+    tasks.getByPath('app:connectedAndroidTest')
+    finalizedBy ":backend:appengineStop"
+    doLast {
+        println "Job is Done"
+    }
+}
+
