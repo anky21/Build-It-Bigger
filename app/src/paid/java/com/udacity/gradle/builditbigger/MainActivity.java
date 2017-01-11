@@ -6,16 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.udacity.gradle.jokedisplay.JokeDisplay;
 
 
 public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        spinner = (ProgressBar) findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
     }
 
     @Override
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
     }
 
     public void tellJoke(View view) {
+        spinner.setVisibility(View.VISIBLE);
         // Kicks off the Async Task
         new EndpointsAsyncTask(this).execute();
     }
@@ -48,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
     // Start an Intent activity with result from the AsyncTask
     @Override
     public void onTaskCompleted(String result) {
+        spinner.setVisibility(View.GONE);
         Intent intent = new Intent(this, JokeDisplay.class);
         intent.putExtra(Intent.EXTRA_TEXT, result);
         startActivity(intent);
